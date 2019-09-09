@@ -30,6 +30,114 @@ Begin VB.Form frmConnect
    ScaleWidth      =   800
    StartUpPosition =   2  'CenterScreen
    Visible         =   0   'False
+   Begin AOLibre.uAOButton btnRecuperar 
+      Height          =   375
+      Left            =   2160
+      TabIndex        =   9
+      TabStop         =   0   'False
+      Top             =   8400
+      Width           =   1335
+      _ExtentX        =   2355
+      _ExtentY        =   661
+      TX              =   "Recuperar Pass"
+      ENAB            =   -1  'True
+      FCOL            =   7314354
+      OCOL            =   16777215
+      PICE            =   "frmConnect.frx":000C
+      PICF            =   "frmConnect.frx":0A36
+      PICH            =   "frmConnect.frx":16F8
+      PICV            =   "frmConnect.frx":268A
+      BeginProperty FONT {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Calibri"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+   End
+   Begin AOLibre.uAOButton btnCrearCuenta 
+      Height          =   375
+      Left            =   600
+      TabIndex        =   8
+      TabStop         =   0   'False
+      Top             =   8400
+      Width           =   1335
+      _ExtentX        =   2355
+      _ExtentY        =   661
+      TX              =   "Crear Cuenta"
+      ENAB            =   -1  'True
+      FCOL            =   7314354
+      OCOL            =   16777215
+      PICE            =   "frmConnect.frx":358C
+      PICF            =   "frmConnect.frx":3FB6
+      PICH            =   "frmConnect.frx":4C78
+      PICV            =   "frmConnect.frx":5C0A
+      BeginProperty FONT {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Calibri"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+   End
+   Begin AOLibre.uAOButton btnSalir 
+      Height          =   375
+      Left            =   9960
+      TabIndex        =   14
+      TabStop         =   0   'False
+      Top             =   8400
+      Width           =   1335
+      _ExtentX        =   2355
+      _ExtentY        =   661
+      TX              =   "Salir"
+      ENAB            =   -1  'True
+      FCOL            =   7314354
+      OCOL            =   16777215
+      PICE            =   "frmConnect.frx":6B0C
+      PICF            =   "frmConnect.frx":7536
+      PICH            =   "frmConnect.frx":81F8
+      PICV            =   "frmConnect.frx":918A
+      BeginProperty FONT {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Calibri"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+   End
+   Begin AOLibre.uAOButton btnCrearServer 
+      Height          =   375
+      Left            =   8400
+      TabIndex        =   13
+      TabStop         =   0   'False
+      Top             =   8400
+      Width           =   1335
+      _ExtentX        =   2355
+      _ExtentY        =   661
+      TX              =   "Crear Server"
+      ENAB            =   -1  'True
+      FCOL            =   7314354
+      OCOL            =   16777215
+      PICE            =   "frmConnect.frx":A08C
+      PICF            =   "frmConnect.frx":AAB6
+      PICH            =   "frmConnect.frx":B778
+      PICV            =   "frmConnect.frx":C70A
+      BeginProperty FONT {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Calibri"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+   End
    Begin AOLibre.uAOCheckbox chkRecordar 
       Height          =   345
       Left            =   5280
@@ -37,11 +145,11 @@ Begin VB.Form frmConnect
       TabStop         =   0   'False
       Top             =   4440
       Width           =   345
-      _extentx        =   609
-      _extenty        =   609
-      enab            =   -1
-      chck            =   0
-      picc            =   "frmConnect.frx":000C
+      _ExtentX        =   609
+      _ExtentY        =   609
+      CHCK            =   0   'False
+      ENAB            =   -1  'True
+      PICC            =   "frmConnect.frx":D60C
    End
    Begin VB.Timer tEfectos 
       Left            =   1680
@@ -54,17 +162,25 @@ Begin VB.Form frmConnect
       TabStop         =   0   'False
       Top             =   6840
       Width           =   1935
-      _extentx        =   3413
-      _extenty        =   873
-      tx              =   "Actualizar Lista"
-      enab            =   -1
-      fcol            =   7314354
-      ocol            =   16777215
-      pice            =   "frmConnect.frx":10F4
-      picf            =   "frmConnect.frx":1B20
-      pich            =   "frmConnect.frx":27E4
-      picv            =   "frmConnect.frx":3778
-      font            =   "frmConnect.frx":467C
+      _ExtentX        =   3413
+      _ExtentY        =   873
+      TX              =   "Actualizar Lista"
+      ENAB            =   -1  'True
+      FCOL            =   7314354
+      OCOL            =   16777215
+      PICE            =   "frmConnect.frx":E6F2
+      PICF            =   "frmConnect.frx":F11C
+      PICH            =   "frmConnect.frx":FDDE
+      PICV            =   "frmConnect.frx":10D70
+      BeginProperty FONT {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Calibri"
+         Size            =   12
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
    End
    Begin VB.ListBox lstRedditPosts 
       Appearance      =   0  'Flat
@@ -99,9 +215,9 @@ Begin VB.Form frmConnect
       EndProperty
       ForeColor       =   &H0000FF00&
       Height          =   4905
-      ItemData        =   "frmConnect.frx":46A4
+      ItemData        =   "frmConnect.frx":11C72
       Left            =   8685
-      List            =   "frmConnect.frx":46A6
+      List            =   "frmConnect.frx":11C74
       TabIndex        =   3
       Top             =   1680
       Width           =   2775
@@ -190,44 +306,6 @@ Begin VB.Form frmConnect
       Top             =   2760
       Width           =   1575
    End
-   Begin AOLibre.uAOButton btnCrearCuenta 
-      Height          =   375
-      Left            =   600
-      TabIndex        =   8
-      TabStop         =   0   'False
-      Top             =   8400
-      Width           =   1335
-      _extentx        =   2355
-      _extenty        =   661
-      tx              =   "Crear Cuenta"
-      enab            =   -1
-      fcol            =   7314354
-      ocol            =   16777215
-      pice            =   "frmConnect.frx":46A8
-      picf            =   "frmConnect.frx":50D4
-      pich            =   "frmConnect.frx":5D98
-      picv            =   "frmConnect.frx":6D2C
-      font            =   "frmConnect.frx":7C30
-   End
-   Begin AOLibre.uAOButton btnRecuperar 
-      Height          =   375
-      Left            =   2160
-      TabIndex        =   9
-      TabStop         =   0   'False
-      Top             =   8400
-      Width           =   1335
-      _extentx        =   2355
-      _extenty        =   661
-      tx              =   "Recuperar Pass"
-      enab            =   -1
-      fcol            =   7314354
-      ocol            =   16777215
-      pice            =   "frmConnect.frx":7C58
-      picf            =   "frmConnect.frx":8684
-      pich            =   "frmConnect.frx":9348
-      picv            =   "frmConnect.frx":A2DC
-      font            =   "frmConnect.frx":B1E0
-   End
    Begin AOLibre.uAOButton btnManual 
       Height          =   375
       Left            =   3720
@@ -235,17 +313,25 @@ Begin VB.Form frmConnect
       TabStop         =   0   'False
       Top             =   8400
       Width           =   1335
-      _extentx        =   2355
-      _extenty        =   661
-      tx              =   "Manual"
-      enab            =   -1
-      fcol            =   7314354
-      ocol            =   16777215
-      pice            =   "frmConnect.frx":B208
-      picf            =   "frmConnect.frx":BC34
-      pich            =   "frmConnect.frx":C8F8
-      picv            =   "frmConnect.frx":D88C
-      font            =   "frmConnect.frx":E790
+      _ExtentX        =   2355
+      _ExtentY        =   661
+      TX              =   "Manual"
+      ENAB            =   -1  'True
+      FCOL            =   7314354
+      OCOL            =   16777215
+      PICE            =   "frmConnect.frx":11C76
+      PICF            =   "frmConnect.frx":126A0
+      PICH            =   "frmConnect.frx":13362
+      PICV            =   "frmConnect.frx":142F4
+      BeginProperty FONT {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Calibri"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
    End
    Begin AOLibre.uAOButton btnReglamento 
       Height          =   375
@@ -254,17 +340,25 @@ Begin VB.Form frmConnect
       TabStop         =   0   'False
       Top             =   8400
       Width           =   1335
-      _extentx        =   2355
-      _extenty        =   661
-      tx              =   "Reglamento"
-      enab            =   -1
-      fcol            =   7314354
-      ocol            =   16777215
-      pice            =   "frmConnect.frx":E7B8
-      picf            =   "frmConnect.frx":F1E4
-      pich            =   "frmConnect.frx":FEA8
-      picv            =   "frmConnect.frx":10E3C
-      font            =   "frmConnect.frx":11D40
+      _ExtentX        =   2355
+      _ExtentY        =   661
+      TX              =   "Reglamento"
+      ENAB            =   -1  'True
+      FCOL            =   7314354
+      OCOL            =   16777215
+      PICE            =   "frmConnect.frx":151F6
+      PICF            =   "frmConnect.frx":15C20
+      PICH            =   "frmConnect.frx":168E2
+      PICV            =   "frmConnect.frx":17874
+      BeginProperty FONT {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Calibri"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
    End
    Begin AOLibre.uAOButton btnCodigoFuente 
       Height          =   375
@@ -273,55 +367,25 @@ Begin VB.Form frmConnect
       TabStop         =   0   'False
       Top             =   8400
       Width           =   1335
-      _extentx        =   2355
-      _extenty        =   661
-      tx              =   "Codigo Fuente"
-      enab            =   -1
-      fcol            =   7314354
-      ocol            =   16777215
-      pice            =   "frmConnect.frx":11D68
-      picf            =   "frmConnect.frx":12794
-      pich            =   "frmConnect.frx":13458
-      picv            =   "frmConnect.frx":143EC
-      font            =   "frmConnect.frx":152F0
-   End
-   Begin AOLibre.uAOButton btnCrearServer 
-      Height          =   375
-      Left            =   8400
-      TabIndex        =   13
-      TabStop         =   0   'False
-      Top             =   8400
-      Width           =   1335
-      _extentx        =   2355
-      _extenty        =   661
-      tx              =   "Crear Server"
-      enab            =   -1
-      fcol            =   7314354
-      ocol            =   16777215
-      pice            =   "frmConnect.frx":15318
-      picf            =   "frmConnect.frx":15D44
-      pich            =   "frmConnect.frx":16A08
-      picv            =   "frmConnect.frx":1799C
-      font            =   "frmConnect.frx":188A0
-   End
-   Begin AOLibre.uAOButton btnSalir 
-      Height          =   375
-      Left            =   9960
-      TabIndex        =   14
-      TabStop         =   0   'False
-      Top             =   8400
-      Width           =   1335
-      _extentx        =   2355
-      _extenty        =   661
-      tx              =   "Salir"
-      enab            =   -1
-      fcol            =   7314354
-      ocol            =   16777215
-      pice            =   "frmConnect.frx":188C8
-      picf            =   "frmConnect.frx":192F4
-      pich            =   "frmConnect.frx":19FB8
-      picv            =   "frmConnect.frx":1AF4C
-      font            =   "frmConnect.frx":1BE50
+      _ExtentX        =   2355
+      _ExtentY        =   661
+      TX              =   "Codigo Fuente"
+      ENAB            =   -1  'True
+      FCOL            =   7314354
+      OCOL            =   16777215
+      PICE            =   "frmConnect.frx":18776
+      PICF            =   "frmConnect.frx":191A0
+      PICH            =   "frmConnect.frx":19E62
+      PICV            =   "frmConnect.frx":1ADF4
+      BeginProperty FONT {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Calibri"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
    End
    Begin AOLibre.uAOButton btnConectarse 
       Height          =   375
@@ -330,17 +394,25 @@ Begin VB.Form frmConnect
       TabStop         =   0   'False
       Top             =   3960
       Width           =   1335
-      _extentx        =   2355
-      _extenty        =   661
-      tx              =   "Conectarse"
-      enab            =   -1
-      fcol            =   7314354
-      ocol            =   16777215
-      pice            =   "frmConnect.frx":1BE78
-      picf            =   "frmConnect.frx":1C8A4
-      pich            =   "frmConnect.frx":1D568
-      picv            =   "frmConnect.frx":1E4FC
-      font            =   "frmConnect.frx":1F400
+      _ExtentX        =   2355
+      _ExtentY        =   661
+      TX              =   "Conectarse"
+      ENAB            =   -1  'True
+      FCOL            =   7314354
+      OCOL            =   16777215
+      PICE            =   "frmConnect.frx":1BCF6
+      PICF            =   "frmConnect.frx":1C720
+      PICH            =   "frmConnect.frx":1D3E2
+      PICV            =   "frmConnect.frx":1E374
+      BeginProperty FONT {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Calibri"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
    End
    Begin AOLibre.uAOButton btnTeclas 
       Height          =   375
@@ -349,17 +421,25 @@ Begin VB.Form frmConnect
       TabStop         =   0   'False
       Top             =   3960
       Width           =   1335
-      _extentx        =   2355
-      _extenty        =   661
-      tx              =   "Teclas"
-      enab            =   -1
-      fcol            =   7314354
-      ocol            =   16777215
-      pice            =   "frmConnect.frx":1F428
-      picf            =   "frmConnect.frx":1FE54
-      pich            =   "frmConnect.frx":20B18
-      picv            =   "frmConnect.frx":21AAC
-      font            =   "frmConnect.frx":229B0
+      _ExtentX        =   2355
+      _ExtentY        =   661
+      TX              =   "Teclas"
+      ENAB            =   -1  'True
+      FCOL            =   7314354
+      OCOL            =   16777215
+      PICE            =   "frmConnect.frx":1F276
+      PICF            =   "frmConnect.frx":1FCA0
+      PICH            =   "frmConnect.frx":20962
+      PICV            =   "frmConnect.frx":218F4
+      BeginProperty FONT {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Calibri"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
    End
    Begin AOLibre.uAOButton btnVerForo 
       Height          =   495
@@ -368,17 +448,25 @@ Begin VB.Form frmConnect
       TabStop         =   0   'False
       Top             =   6075
       Width           =   2775
-      _extentx        =   4895
-      _extenty        =   873
-      tx              =   "Ver Foro"
-      enab            =   -1
-      fcol            =   7314354
-      ocol            =   16777215
-      pice            =   "frmConnect.frx":229D8
-      picf            =   "frmConnect.frx":23404
-      pich            =   "frmConnect.frx":240C8
-      picv            =   "frmConnect.frx":2505C
-      font            =   "frmConnect.frx":25F60
+      _ExtentX        =   4895
+      _ExtentY        =   873
+      TX              =   "Ver Foro"
+      ENAB            =   -1  'True
+      FCOL            =   7314354
+      OCOL            =   16777215
+      PICE            =   "frmConnect.frx":227F6
+      PICF            =   "frmConnect.frx":23220
+      PICH            =   "frmConnect.frx":23EE2
+      PICV            =   "frmConnect.frx":24E74
+      BeginProperty FONT {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Calibri"
+         Size            =   15.75
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
    End
    Begin VB.Label lblRecordarme 
       BackStyle       =   0  'Transparent
@@ -632,15 +720,15 @@ Private Sub Form_Load()
 
     Me.Picture = LoadPicture(Game.path(Interfaces) & "VentanaConectar.jpg")
     
-    btnActualizarLista.Caption = JsonLanguage.Item("BTN_ACTUALIZAR_LISTA").Item("TEXTO")
-    btnCodigoFuente.Caption = JsonLanguage.Item("BTN_CODIGO_FUENTE").Item("TEXTO")
-    btnConectarse.Caption = JsonLanguage.Item("BTN_CONECTARSE").Item("TEXTO")
-    btnCrearCuenta.Caption = JsonLanguage.Item("BTN_CREAR_CUENTA").Item("TEXTO")
-    btnCrearServer.Caption = JsonLanguage.Item("BTN_CREAR_SERVER").Item("TEXTO")
-    btnManual.Caption = JsonLanguage.Item("BTN_MANUAL").Item("TEXTO")
-    btnRecuperar.Caption = JsonLanguage.Item("BTN_RECUPERAR").Item("TEXTO")
-    btnReglamento.Caption = JsonLanguage.Item("BTN_REGLAMENTO").Item("TEXTO")
-    lblRecordarme.Caption = JsonLanguage.Item("LBL_RECORDARME").Item("TEXTO")
+    btnActualizarLista.Caption = JsonLanguage.item("BTN_ACTUALIZAR_LISTA").item("TEXTO")
+    btnCodigoFuente.Caption = JsonLanguage.item("BTN_CODIGO_FUENTE").item("TEXTO")
+    btnConectarse.Caption = JsonLanguage.item("BTN_CONECTARSE").item("TEXTO")
+    btnCrearCuenta.Caption = JsonLanguage.item("BTN_CREAR_CUENTA").item("TEXTO")
+    btnCrearServer.Caption = JsonLanguage.item("BTN_CREAR_SERVER").item("TEXTO")
+    btnManual.Caption = JsonLanguage.item("BTN_MANUAL").item("TEXTO")
+    btnRecuperar.Caption = JsonLanguage.item("BTN_RECUPERAR").item("TEXTO")
+    btnReglamento.Caption = JsonLanguage.item("BTN_REGLAMENTO").item("TEXTO")
+    lblRecordarme.Caption = JsonLanguage.item("LBL_RECORDARME").item("TEXTO")
 
     ' GSZAO - Animación...
     
@@ -680,11 +768,16 @@ Private Sub Form_Load()
     AnimControl(7).Velocidad = 0
     AnimControl(7).Top = 560
     
-    'btnReglamento.Top = 10
+    btnReglamento.Top = 10
     AnimControl(8).Activo = True
-    'AnimControl(8).Velocidad = 0
-    'AnimControl(8).Top = 560
-
+    AnimControl(8).Velocidad = 0
+    AnimControl(8).Top = 560
+    
+    btnSalir.Top = 10
+    AnimControl(9).Activo = True
+    AnimControl(9).Velocidad = 0
+    AnimControl(9).Top = 560
+    
     'btnTeclas.Top = 10
     AnimControl(10).Activo = True
     'AnimControl(10).Velocidad = 0
@@ -700,7 +793,7 @@ Private Sub tEfectos_Timer()
     Dim oTop As Integer
     Dim i    As Integer
 
-    For i = 1 To 7
+    For i = 1 To 9
 
         If AnimControl(i).Activo = True Then
 

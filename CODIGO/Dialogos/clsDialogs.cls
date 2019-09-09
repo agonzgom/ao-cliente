@@ -81,9 +81,14 @@ Private Type dialog
     startTime   As Long
     lifeTime    As Long
     CharIndex   As Integer
-    color       As Long
+    Color       As Long
     renderable  As Boolean
-    Sube        As Integer
+    Elevate As Integer
+    Alpha As Integer
+    Inicia As Boolean
+    TickCountFadeOut As Long
+    TickCountFadeIn As Long
+    TickCOuntOutFinal As Long
 End Type
 
 ''
@@ -121,20 +126,20 @@ Private Function BinarySearch(ByVal CharIndex As Integer) As Integer
 'Returns the index of the dialog in the list, or the negation
 'of the position were it should be if not found (for binary insertion)
 '**************************************************************
-    Dim Min As Long
-    Dim Max As Long
+    Dim min As Long
+    Dim max As Long
     Dim mid As Long
     
-    Min = 0
-    Max = dialogCount - 1
+    min = 0
+    max = dialogCount - 1
     
-    Do While Min <= Max
-        mid = (Min + Max) \ 2
+    Do While min <= max
+        mid = (min + max) \ 2
         
         If dialogs(mid).CharIndex < CharIndex Then
-            Min = mid + 1
+            min = mid + 1
         ElseIf dialogs(mid).CharIndex > CharIndex Then
-            Max = mid - 1
+            max = mid - 1
         Else
             'We found it
             BinarySearch = mid
@@ -144,7 +149,7 @@ Private Function BinarySearch(ByVal CharIndex As Integer) As Integer
     
     'Not found, return the negation of the position where it should be
     '(all higher values are to the right of the list and lower values are to the left)
-    BinarySearch = Not Min
+    BinarySearch = Not min
 End Function
 
 ''
@@ -158,7 +163,7 @@ End Function
 ' @remarks  If there are no more free slots, and the char didn't have a previous dialog,
 '           the chat is ignored.
 
-Public Sub CreateDialog(ByRef chat As String, ByVal CharIndex As Integer, ByVal color As Long)
+Public Sub CreateDialog(ByRef chat As String, ByVal CharIndex As Integer, ByVal Color As Long)
 '**************************************************************
 'Author: Juan Martin Sotuyo Dodero
 'Last Modification: 08/29/07 by Rapsodius
@@ -188,12 +193,17 @@ Public Sub CreateDialog(ByRef chat As String, ByVal CharIndex As Integer, ByVal 
     
     With dialogs(slot)
         .CharIndex = CharIndex
-        .color = ColorToDX8(color)
+        .Color = ColorToDX8(Color)
         .renderable = False
         .startTime = GetTickCount()
         .textLine = FormatChat(chat)
         .lifeTime = MS_ADD_EXTRA + (MS_PER_CHAR * Len(chat))
-        .Sube = 10
+        .Elevate = 8
+        .Inicia = True
+        .Alpha = 0
+        .TickCountFadeOut = GetTickCount
+        .TickCountFadeIn = .TickCountFadeOut
+        .TickCOuntOutFinal = .TickCountFadeOut
     End With
 End Sub
 
@@ -214,7 +224,7 @@ Private Function FormatChat(ByRef chat As String) As String()
 '**************************************************************
     Dim word As String
     Dim curPos As Long
-    Dim length As Long
+    Dim Length As Long
     Dim acumLength As Long
     Dim lineLength As Long
     Dim wordLength As Long
@@ -224,13 +234,13 @@ Private Function FormatChat(ByRef chat As String) As String()
     'Initialize variables
     curLine = 0
     curPos = 1
-    length = Len(chat)
+    Length = Len(chat)
     acumLength = 0
     lineLength = -1
     ReDim chatLines(FieldCount(chat, 32)) As String
     
     'Start formating
-    Do While acumLength < length
+    Do While acumLength < Length
         word = ReadField(curPos, chat, 32)
         
         wordLength = Len(word)
@@ -264,8 +274,8 @@ Private Function FormatChat(ByRef chat As String) As String()
     Loop
     
     ' If it's only one line, center text
-    If curLine = 0 And length < MAX_LENGTH Then
-        chatLines(curLine) = String$((MAX_LENGTH - length) \ 2 + 1, " ") & chatLines(curLine)
+    If curLine = 0 And Length < MAX_LENGTH Then
+        chatLines(curLine) = String$((MAX_LENGTH - Length) \ 2 + 1, " ") & chatLines(curLine)
     End If
     
     'Resize array to fit
@@ -309,38 +319,45 @@ Public Sub Render()
 'Last Modification: 08/29/07 by Rapsodius
 'Changed the way it gets rid of older dialogs.
 '**************************************************************
-    Dim i As Long
-    Dim j As Long
-    Dim offset As Integer
-    Dim removedDialogs As Long
-    Dim Count_dialog As Long
-    
-    Count_dialog = dialogCount - 1
-    
-    For i = 0 To Count_dialog
-        'Decrease index to prevent jumping over a dialog
-        'Crappy VB will cache the limit of the For loop, so even if it changed, it won't matter
+On Error Resume Next
+Dim i As Long, j As Long, Offset As Integer, removedDialogs As Long
+    For i = 0 To dialogCount - 1
         With dialogs(i - removedDialogs)
-            If (GetTickCount() - .startTime) >= .lifeTime Then
-                Call RemoveDialog(.CharIndex)
-                
-                removedDialogs = removedDialogs + 1
-            ElseIf .renderable Then
-                Dim Upper_textLine As Long
-                    Upper_textLine = UBound(.textLine())
-                
-                offset = -(usedFont.Size + 2) * Upper_textLine
-                
-                'Letras suben desde la cabeza.
-                If .lifeTime >= 292 Then
-                    .Sube = .Sube - 1
-                    If .Sube > 0 Then .Y = .Y + .Sube
+            If .renderable Then
+                Offset = -10 * UBound(.textLine())
+
+                'Subir Letras
+                If GetTickCount - .TickCountFadeIn > 6 Then
+                    .Elevate = .Elevate - 1
+                    .TickCountFadeIn = GetTickCount
                 End If
                 
+                    If .Elevate >= 0 Then .Y = .Y + .Elevate
+
+                'Alpha de Aparición
+                If .Alpha <= 255 And .Inicia = True And GetTickCount - .TickCOuntOutFinal > 6 Then
+                    .TickCOuntOutFinal = GetTickCount
+                    If Not .Alpha = 255 Then .Alpha = .Alpha + 5
+                    If .Alpha >= 255 Then .Inicia = False: .Alpha = 255
+                End If
+                                
+                'Alpha de Desaparición
+                If Not .Inicia And GetTickCount - .TickCountFadeOut > 10000 Then 'Give 10 Seconds to read Dialog
+                    If .Alpha >= 0 And Not .Inicia And GetTickCount - .TickCOuntOutFinal > 18 Then
+                        .Alpha = .Alpha - 5
+                        .TickCOuntOutFinal = GetTickCount
+                            'Si el Alpha es 0, removemos el dialogo
+                            If .Alpha <= 0 Then
+                                Call RemoveDialog(.CharIndex)
+                                removedDialogs = removedDialogs + 1
+                                Exit Sub
+                            End If
+                    End If
+                End If
                 'Render it
-                For j = 0 To Upper_textLine
-                    Call DrawText(.X, .Y + offset, .textLine(j), .color)
-                    offset = offset + usedFont.Size + 5
+                For j = 0 To UBound(.textLine)
+                    Call DrawText(.X, .Y + Offset, .textLine(j), .Color)
+                    Offset = Offset + usedFont.Size + 5
                 Next j
                 
                 'Won't render it unless it's updated in next frmae
