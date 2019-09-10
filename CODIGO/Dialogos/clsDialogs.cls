@@ -195,13 +195,13 @@ Public Sub CreateDialog(ByRef chat As String, ByVal CharIndex As Integer, ByVal 
         .CharIndex = CharIndex
         .Color = ColorToDX8(Color)
         .renderable = False
-        .startTime = GetTickCount()
+        .startTime = timeGetTime
         .textLine = FormatChat(chat)
         .lifeTime = MS_ADD_EXTRA + (MS_PER_CHAR * Len(chat))
         .Elevate = 8
         .Inicia = True
         .Alpha = 0
-        .TickCountFadeOut = GetTickCount
+        .TickCountFadeOut = timeGetTime
         .TickCountFadeIn = .TickCountFadeOut
         .TickCOuntOutFinal = .TickCountFadeOut
     End With
@@ -327,25 +327,25 @@ Dim i As Long, J As Long, Offset As Integer, removedDialogs As Long
                 Offset = -10 * UBound(.textLine())
 
                 'Subir Letras
-                If GetTickCount > .TickCountFadeIn Then
+                If timeGetTime > .TickCountFadeIn Then
                     .Elevate = .Elevate - 1
-                    .TickCountFadeIn = GetTickCount + 6
+                    .TickCountFadeIn = timeGetTime + 6
                 End If
                 
                     If .Elevate >= 0 Then .Y = .Y + .Elevate
 
                 'Alpha de Aparición
-                If .Alpha <= 255 And .Inicia = True And GetTickCount > .TickCOuntOutFinal Then
-                    .TickCOuntOutFinal = GetTickCount + 6
+                If .Alpha <= 255 And .Inicia = True And timeGetTime > .TickCOuntOutFinal Then
+                    .TickCOuntOutFinal = timeGetTime + 6
                     If Not .Alpha = 255 Then .Alpha = .Alpha + 5
                     If .Alpha >= 255 Then .Inicia = False: .Alpha = 255
                 End If
                                 
                 'Alpha de Desaparición
-                If Not .Inicia And GetTickCount > .TickCountFadeOut Then 'Give 10 Seconds to read Dialog
-                    If .Alpha >= 0 And Not .Inicia And GetTickCount - .TickCOuntOutFinal > 18 Then
+                If Not .Inicia And timeGetTime > .TickCountFadeOut Then 'Give 10 Seconds to read Dialog
+                    If .Alpha >= 0 And Not .Inicia And timeGetTime - .TickCOuntOutFinal > 18 Then
                         .Alpha = .Alpha - 5
-                        .TickCOuntOutFinal = GetTickCount + 10000
+                        .TickCOuntOutFinal = timeGetTime + 10000
                             'Si el Alpha es 0, removemos el dialogo
                             If .Alpha <= 0 Then
                                 Call RemoveDialog(.CharIndex)

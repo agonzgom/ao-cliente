@@ -1944,8 +1944,8 @@ Public Sub DesvanecimientoMsg()
 '*****************************************************************
     Static lastmovement As Long
     
-    If GetTickCount > lastmovement Then
-        lastmovement = GetTickCount + 1
+    If timeGetTime > lastmovement Then
+        lastmovement = timeGetTime + 1
     Else
         Exit Sub
     End If

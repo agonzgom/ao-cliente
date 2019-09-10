@@ -734,7 +734,7 @@ Public ListaClases(1 To NUMCLASES) As String
 
 Public SkillPoints As Integer
 Public Alocados As Integer
-Public Flags() As Integer
+Public flags() As Integer
 
 Public UsingSkill As Integer
 

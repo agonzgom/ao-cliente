@@ -98,8 +98,8 @@ Sub DrawGrhtoHdc(ByVal desthDC As Long, ByVal grh_index As Integer, ByRef Source
     If Get_Image(Game.path(Graficos), CStr(GrhData(grh_index).FileNum), data, True) Then  ' GSZAO
         Set bmpData = ArrayToPicture(data(), 0, UBound(data) + 1)
         
-        src_x = GrhData(grh_index).SX
-        src_y = GrhData(grh_index).SY
+        src_x = GrhData(grh_index).sX
+        src_y = GrhData(grh_index).sY
         src_width = GrhData(grh_index).pixelWidth
         src_height = GrhData(grh_index).pixelHeight
         

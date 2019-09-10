@@ -46,6 +46,7 @@ Public bLluvia() As Byte ' Array para determinar si
 'debemos mostrar la animacion de la lluvia
 
 Private lFrameTimer As Long
+Private lFrameTimerFlush As Long
 
 Public Function RandomNumber(ByVal LowerBound As Long, ByVal UpperBound As Long) As Long
     'Initialize randomizer
@@ -809,8 +810,6 @@ Sub Main()
     Dialogos.Font = frmMain.Font
     DialogosClanes.Font = frmMain.Font
     
-    lFrameTimer = GetTickCount
-    
     ' Load the form for screenshots
     Call Load(frmScreenshots)
         
@@ -826,16 +825,15 @@ Sub Main()
             Call CheckKeys
         End If
         'FPS Counter - mostramos las FPS
-        If GetTickCount - lFrameTimer >= 1000 Then
+        If GetTickCount > lFrameTimer Then
             If FPSFLAG Then frmMain.lblFPS.Caption = Mod_TileEngine.FPS
-            
-            lFrameTimer = GetTickCount
+            lFrameTimer = GetTickCount + 1000
         End If
         
         ' If there is anything to be sent, we send it
-        If GetTickCount > lFrameTimer Then
+        If timeGetTime > lFrameTimerFlush Then
             Call FlushBuffer
-            lFrameTimer = GetTickCount + 12
+            lFrameTimerFlush = timeGetTime + 12
         End If
         
         DoEvents

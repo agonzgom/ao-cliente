@@ -655,8 +655,8 @@ Public Sub Engine_Update_FPS()
     'Last Modification: 09/09/2019
     'Calculate FPS
     '***************************************************
-
-    If FPSLastCheck < GetTickCount Then
+    
+    If GetTickCount > FPSLastCheck Then
         FPS = FramesPerSecCounter
         FramesPerSecCounter = 1
         FPSLastCheck = GetTickCount + 1000
