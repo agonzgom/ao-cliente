@@ -140,10 +140,10 @@ Public Sub Update_Aura(ByVal CharIndex As Integer, slot As Byte)
     If slot <= 0 Or slot >= 5 Then Exit Sub
     
     With charlist(CharIndex).Aura(slot)
-        If GetTickCount - .TickCount > FPS Then
+        If GetTickCount > .TickCount Then
             .Angle = .Angle + .Speed
             If .Angle >= 360 Then .Angle = 0
-            .TickCount = GetTickCount
+            .TickCount = GetTickCount + FPS
         End If
     End With
 End Sub

@@ -5371,7 +5371,7 @@ Private Sub HandlePong()
     
     Dim MENSAJE_PING As String
         MENSAJE_PING = JsonLanguage.item("MENSAJE_PING").item("TEXTO")
-        MENSAJE_PING = Replace$(MENSAJE_PING, "VAR_PING", (GetTickCount - pingTime))
+        MENSAJE_PING = Replace$(MENSAJE_PING, "VAR_PING", (timeGetTime - pingTime))
         
     Call AddtoRichTextBox(frmMain.RecTxt, _
                             MENSAJE_PING, _
@@ -10290,7 +10290,7 @@ Public Sub WritePing()
     Call FlushBuffer
     DoEvents
     
-    pingTime = GetTickCount
+    pingTime = timeGetTime
 End Sub
 
 ''

@@ -520,9 +520,9 @@ End Sub
 
 
 Public Sub DrawInv(Optional ByVal r As Boolean = False)
-    If (GetTickCount - InventoryTickCount > 300) Or ((DragItem <> 0 And Drag = 1) And (GetTickCount - InventoryTickCount > 40)) Then
+    If (GetTickCount > InventoryTickCount) Or ((DragItem <> 0 And Drag = 1) And (GetTickCount > InventoryTickCount - 260)) Then
         Call DrawInventory
-        InventoryTickCount = GetTickCount
+        InventoryTickCount = GetTickCount + 300
     End If
 End Sub
 Public Sub Initialize(ByRef DirectD3D As D3DX8, ByRef InvPic As PictureBox, ByVal MaxObjs As Byte, _

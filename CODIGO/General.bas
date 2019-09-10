@@ -833,9 +833,9 @@ Sub Main()
         End If
         
         ' If there is anything to be sent, we send it
-        If GetTickCount - lFrameTimer >= 12 Then
+        If GetTickCount > lFrameTimer Then
             Call FlushBuffer
-            lFrameTimer = GetTickCount
+            lFrameTimer = GetTickCount + 12
         End If
         
         DoEvents

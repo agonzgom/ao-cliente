@@ -320,32 +320,32 @@ Public Sub Render()
 'Changed the way it gets rid of older dialogs.
 '**************************************************************
 On Error Resume Next
-Dim i As Long, j As Long, Offset As Integer, removedDialogs As Long
+Dim i As Long, J As Long, Offset As Integer, removedDialogs As Long
     For i = 0 To dialogCount - 1
         With dialogs(i - removedDialogs)
             If .renderable Then
                 Offset = -10 * UBound(.textLine())
 
                 'Subir Letras
-                If GetTickCount - .TickCountFadeIn > 6 Then
+                If GetTickCount > .TickCountFadeIn Then
                     .Elevate = .Elevate - 1
-                    .TickCountFadeIn = GetTickCount
+                    .TickCountFadeIn = GetTickCount + 6
                 End If
                 
                     If .Elevate >= 0 Then .Y = .Y + .Elevate
 
                 'Alpha de Aparición
-                If .Alpha <= 255 And .Inicia = True And GetTickCount - .TickCOuntOutFinal > 6 Then
-                    .TickCOuntOutFinal = GetTickCount
+                If .Alpha <= 255 And .Inicia = True And GetTickCount > .TickCOuntOutFinal Then
+                    .TickCOuntOutFinal = GetTickCount + 6
                     If Not .Alpha = 255 Then .Alpha = .Alpha + 5
                     If .Alpha >= 255 Then .Inicia = False: .Alpha = 255
                 End If
                                 
                 'Alpha de Desaparición
-                If Not .Inicia And GetTickCount - .TickCountFadeOut > 10000 Then 'Give 10 Seconds to read Dialog
+                If Not .Inicia And GetTickCount > .TickCountFadeOut Then 'Give 10 Seconds to read Dialog
                     If .Alpha >= 0 And Not .Inicia And GetTickCount - .TickCOuntOutFinal > 18 Then
                         .Alpha = .Alpha - 5
-                        .TickCOuntOutFinal = GetTickCount
+                        .TickCOuntOutFinal = GetTickCount + 10000
                             'Si el Alpha es 0, removemos el dialogo
                             If .Alpha <= 0 Then
                                 Call RemoveDialog(.CharIndex)
@@ -355,10 +355,10 @@ Dim i As Long, j As Long, Offset As Integer, removedDialogs As Long
                     End If
                 End If
                 'Render it
-                For j = 0 To UBound(.textLine)
-                    Call DrawText(.X, .Y + Offset, .textLine(j), .Color)
+                For J = 0 To UBound(.textLine)
+                    Call DrawText(.X, .Y + Offset, .textLine(J), .Color)
                     Offset = Offset + usedFont.Size + 5
-                Next j
+                Next J
                 
                 'Won't render it unless it's updated in next frmae
                 .renderable = False
