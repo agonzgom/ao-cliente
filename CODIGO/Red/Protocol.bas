@@ -86,6 +86,7 @@ Private Enum ServerPacketID
     CharacterMove           ' MP, +, * and _ '
     ForceCharMove
     CharacterChange         ' CP
+    HeadingChange
     ObjectCreate            ' HO
     ObjectDelete            ' BO
     BlockPosition           ' BQ
@@ -632,6 +633,9 @@ On Error Resume Next
         
         Case ServerPacketID.CharacterChange         ' CP
             Call HandleCharacterChange
+            
+        Case ServerPacketID.HeadingChange
+            Call HandleHeadingChange
         
         Case ServerPacketID.ObjectCreate            ' HO
             Call HandleObjectCreate
@@ -1609,7 +1613,7 @@ Private Sub HandleBankInit()
     
     BankGold = incomingData.ReadLong
     Call InvBanco(0).Initialize(DirectD3D8, frmBancoObj.PicBancoInv, MAX_BANCOINVENTORY_SLOTS)
-    Call InvBanco(1).Initialize(DirectD3D8, frmBancoObj.picInv, Inventario.MaxObjs)
+    Call InvBanco(1).Initialize(DirectD3D8, frmBancoObj.PicInv, Inventario.MaxObjs)
     
     For i = 1 To Inventario.MaxObjs
         With Inventario
@@ -2711,9 +2715,6 @@ Private Sub HandleCharacterChange()
     '// Char Head
     Call Char_SetHead(CharIndex, incomingData.ReadInteger)
         
-    '// Char Heading
-    Call Char_SetHeading(CharIndex, incomingData.ReadByte())
-        
     '// Char Weapon
     Call Char_SetWeapon(CharIndex, incomingData.ReadInteger())
         
@@ -2726,6 +2727,29 @@ Private Sub HandleCharacterChange()
     '// Char Fx
     Call Char_SetFx(CharIndex, incomingData.ReadInteger(), incomingData.ReadInteger())
         
+    Call Char_RefreshAll
+End Sub
+Private Sub HandleHeadingChange()
+'***************************************************
+'Author: Juan Martin Sotuyo Dodero (Maraxus)
+'Last Modification: 21/09/2010 - C4b3z0n
+'25/08/2009: ZaMa - Changed a variable used incorrectly.
+'21/09/2010: C4b3z0n - Added code for FragShooter. If its waiting for the death of certain UserIndex, and it dies, then the capture of the screen will occur.
+'***************************************************
+    If incomingData.Length < 18 Then
+        Err.Raise incomingData.NotEnoughDataErrCode
+        Exit Sub
+    End If
+    
+    'Remove packet ID
+    Call incomingData.ReadByte
+    
+    Dim CharIndex As Integer
+    
+    CharIndex = incomingData.ReadInteger()
+    
+    Call Char_SetHeading(CharIndex, incomingData.ReadByte())
+    
     Call Char_RefreshAll
 End Sub
 
@@ -2906,7 +2930,7 @@ On Error GoTo ErrHandler
     
     With frmGuildAdm
         'Clear guild's list
-        .GuildsList.Clear
+        .guildslist.Clear
         
         GuildNames = Split(Buffer.ReadASCIIString(), SEPARATOR)
         
@@ -4638,7 +4662,7 @@ On Error GoTo ErrHandler
         GuildNames = Split(Buffer.ReadASCIIString(), SEPARATOR)
         
         'Empty the list
-        Call .GuildsList.Clear
+        Call .guildslist.Clear
         
         For i = 0 To UBound(GuildNames())
             If LenB(GuildNames(i)) <> 0 Then
